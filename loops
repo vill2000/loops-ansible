@@ -1,0 +1,20 @@
+---
+- hosts: all
+  user: root
+  become: true
+  become_method: sudo
+  tasks:
+  - name: install multiple packages
+    yum: name={{item}} state=latest
+    with_items:
+    - git
+    - httpd
+    - docker
+    - java
+    - python
+    - name: start multiple service
+      service: name={{item}} state=started
+      with_items:
+    - httpd
+    - docker
+
